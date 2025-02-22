@@ -35,6 +35,10 @@
         @apply text-gray-600 w-full py-3 px-4 rounded-lg bg-[#fafafa] border border-gray-300 resize-none focus:outline-none focus:border-2 focus:border-blue-600;
     }
 
+    .secondary-input-box {
+        @apply text-gray-600 w-full py-3 px-4 rounded-lg bg-white resize-none focus:outline-none focus:border-2 focus:border-blue-600;
+    }
+
     .btn-primary {
         @apply w-fit rounded-lg transition-all duration-150 delay-75 ease-linear bg-blue-600 font-bold text-base text-white px-4 py-[10px] hover:bg-blue-700;
     }
@@ -43,8 +47,8 @@
         @apply btn-primary hover:bg-blue-600 cursor-not-allowed opacity-65;
     }
 
-    .btn-secondary {
-        @apply w-fit rounded-lg transition-all duration-150 delay-75 ease-linear bg-[#fafafa] font-bold text-base text-black px-4 py-[10px] hover:text-blue-600;
+    .btn-outlined {
+        @apply w-fit rounded-lg transition-all duration-150 delay-75 ease-linear bg-[#fafafa] font-bold text-base text-black px-4 py-[10px] border border-[#D0D5DD] hover:text-blue-600;
     }
 
     .toolbar-btn {

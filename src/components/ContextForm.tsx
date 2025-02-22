@@ -25,7 +25,8 @@ const ContextForm: React.FC<ContextFormProps> = ({
             useState(false),
         [isCharactersLimitExceeded, setIsCharactersLimitExceeded] =
             useState(false),
-        [isInvalidContextDetails, setIsInvalidContextDetails] = useState(false);
+        isInvalidContextDetails =
+            !context.title.trim() || !context.description.trim();
 
     useEffect(() => {
         if (isEditForm && !isCharactersCountAdjusted) {
@@ -50,10 +51,6 @@ const ContextForm: React.FC<ContextFormProps> = ({
 
         if (!isLimitExceed) setCurrentCharactersCount(newCharactersCount);
 
-        setIsInvalidContextDetails(
-            context.title.trim().length === 0 ||
-                context.description.trim().length === 0,
-        );
         setIsCharactersLimitExceeded(isLimitExceed);
     }, [previousCharactersCount, context.title, context.description]);
 
@@ -64,25 +61,25 @@ const ContextForm: React.FC<ContextFormProps> = ({
                 type="text"
                 value={context.title}
                 placeholder="Title"
-                className="input-box"
+                className="secondary-input-box"
                 onChange={(e) => onChange('title', e.target.value)}
             />
             <textarea
                 id="description"
                 value={context.description}
                 placeholder="Description"
-                rows={8}
-                className="input-box"
+                rows={12}
+                className="secondary-input-box"
                 onChange={(e) => onChange('description', e.target.value)}
             />
             <p
-                className={`text-sm font-medium ${isCharactersLimitExceeded ? 'text-red-600' : ''}`}
+                className={`font-normal text-xs text-right ${isCharactersLimitExceeded ? 'text-red-600' : 'text-gray-400'}`}
             >
                 {isCharactersLimitExceeded
                     ? `You've exceeded limit of ${MAX_CHARACTER_LIMIT.toLocaleString()} characters`
                     : `${currentCharactersCount.toLocaleString()} / ${MAX_CHARACTER_LIMIT.toLocaleString()} characters`}
             </p>
-            <div className="btn-group flex justify-end gap-x-3">
+            <div className="btn-group flex justify-start gap-x-3">
                 <button
                     className={
                         isCharactersLimitExceeded || isInvalidContextDetails
@@ -97,7 +94,7 @@ const ContextForm: React.FC<ContextFormProps> = ({
                     Save
                 </button>
                 <button
-                    className="btn-secondary"
+                    className="btn-outlined"
                     onClick={onCancel}
                 >
                     Cancel

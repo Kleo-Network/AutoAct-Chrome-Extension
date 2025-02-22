@@ -1,5 +1,6 @@
 import React from 'react';
-import NoSavedContext from '../assets/no_saved_contexts.svg';
+import Step1 from '../assets/images/step1.svg';
+import Step2 from '../assets/images/step2.svg';
 import { ContextItem } from '../models/context.model';
 import ContextItemComponent from './ContextItemComponent';
 
@@ -11,19 +12,36 @@ interface ContextListProps {
 const ContextList: React.FC<ContextListProps> = ({ contextItems, onView }) => {
     if (contextItems.length === 0) {
         return (
-            <div className="px-6 py-4 flex flex-col justify-center items-center bg-[#fafafa] flex-1">
-                <img
-                    src={NoSavedContext}
-                    alt="No Saved Context"
-                    width="80%"
-                />
-                <h3 className="text-lg font-semibold mt-6 text-center">
-                    No Saved Contexts
-                </h3>
-                <p className="text-sm text-[#667085] mt-2 text-center">
-                    You have not saved any context in your knowledgebase yet.
-                    Click on "New" button at top to get started!
-                </p>
+            <div className="px-6 flex flex-col justify-center items-center bg-[#fafafa] flex-1 gap-y-6">
+                <div className="w-full text-center">
+                    <h3 className="text-xl text-black font-semibold">
+                        Your Knowledgebase is empty
+                    </h3>
+                    <p className="text-xs text-[#667085] font-normal mt-2">
+                        Start by adding first context into your knowlegebase by
+                        following these quick steps:
+                    </p>
+                </div>
+                <div className="step-1 w-full flex flex-col items-center gap-y-[14px]">
+                    <img
+                        src={Step1}
+                        alt="Select and Add to AutoAct"
+                        width="40%"
+                    />
+                    <p className="text-sm font-medium text-gray-700">
+                        Select and Add to AutoAct
+                    </p>
+                </div>
+                <div className="step-2 w-full flex flex-col items-center gap-y-[14px]">
+                    <img
+                        src={Step2}
+                        alt="Edit and Save to Knowledgebase"
+                        width="40%"
+                    />
+                    <p className="text-sm font-medium text-gray-700">
+                        Edit and Save to Knowledgebase
+                    </p>
+                </div>
             </div>
         );
     }

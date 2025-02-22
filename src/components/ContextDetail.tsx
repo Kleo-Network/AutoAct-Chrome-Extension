@@ -53,7 +53,7 @@ const ContextDetail: React.FC<ContextDetailProps> = ({
     };
 
     return (
-        <div className="px-6 py-4 w-full">
+        <div className="px-6 py-4 w-full flex-1 bg-[#fafafa]">
             {!isEditMode ? (
                 <div className="w-full text-black">
                     <div className="flex justify-between items-center">

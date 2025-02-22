@@ -23,36 +23,33 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, contexts }) => {
     const handleRunScript = () => {
         console.log('Selected Contexts:', selectedContexts);
         console.log('Additional Info:', additionalInfo);
+        // Make an API call
     };
 
     const handleSelections = useCallback(
         (selectedId: number | string) => {
-            const isAllSelected =
-                    selectedContexts.length !== 0 &&
-                    selectedContexts[0] === ALL_VALUES_SELECTED,
+            const isAllSelected = selectedContexts?.[0] === ALL_VALUES_SELECTED,
                 isFound = selectedContexts.includes(selectedId);
 
-            if (!isAllSelected) {
-                if (isFound) {
-                    const updatedSelections = selectedContexts.filter(
-                        (selectedContext) => selectedContext !== selectedId,
-                    );
-                    setSelectedContexts(updatedSelections);
-                } else {
-                    const updatedSelections = [...selectedContexts, selectedId];
-                    setSelectedContexts(
-                        updatedSelections.length === contexts.length
-                            ? [ALL_VALUES_SELECTED]
-                            : updatedSelections,
-                    );
-                }
-            } else {
+            if (isAllSelected) {
                 setSelectedContexts(
                     contexts
                         .filter((context) => context.id !== selectedId)
                         .map((context) => context.id),
                 );
+                return;
             }
+
+            const updatedSelections = isFound
+                ? selectedContexts.filter(
+                      (selectedContext) => selectedContext !== selectedId,
+                  )
+                : [...selectedContexts, selectedId];
+            setSelectedContexts(
+                updatedSelections.length === contexts.length
+                    ? [ALL_VALUES_SELECTED]
+                    : updatedSelections,
+            );
         },
         [selectedContexts, contexts],
     );
