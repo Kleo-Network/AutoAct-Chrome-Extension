@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BiData, BiPlay, BiSolidMagicWand } from 'react-icons/bi';
+import { TOOLBAR_ID } from '../constants/common.constants';
 import { ContextItem } from '../models/context.model';
 
 interface ToolbarProps {
@@ -99,7 +100,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
     return (
         <div
-            id="autoactToolbar"
+            id={TOOLBAR_ID}
             className="buttons-wrapper fixed top-[42%] right-0 flex flex-col gap-y-1 bg-blue-600 w-fit p-1 rounded-tl-lg rounded-bl-lg"
             style={{
                 zIndex: 9999,
