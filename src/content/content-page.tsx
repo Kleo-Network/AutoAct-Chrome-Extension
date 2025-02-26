@@ -117,7 +117,7 @@ const ContentPage: React.FC = () => {
     };
 
     return (
-        <div className="font-inter">
+        <div className="font-inter relative">
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
