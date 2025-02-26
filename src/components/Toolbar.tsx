@@ -99,6 +99,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
     return (
         <div
+            id="autoactToolbar"
             className="buttons-wrapper fixed top-[42%] right-0 flex flex-col gap-y-1 bg-blue-600 w-fit p-1 rounded-tl-lg rounded-bl-lg"
             style={{
                 zIndex: 9999,

@@ -4,6 +4,7 @@ import { ALL_VALUES_SELECTED } from '../constants/common.constants';
 import { MutliSelectItem } from '../models/common.model';
 
 interface MultiSelectProps {
+    id: string;
     label: string;
     placeHolder: string;
     selected: (string | number)[];
@@ -13,6 +14,7 @@ interface MultiSelectProps {
 }
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
+    id,
     label,
     placeHolder,
     selected,
@@ -24,6 +26,20 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
         [isAllSelected, setIsAllSelected] = useState(true),
         [firstSelectedOption, setFirstSelectedOption] = useState(''),
         [selectedCount, setSelectedCount] = useState(0);
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            const element = event.composedPath()[0] as HTMLElement;
+
+            if (element.id === id || element.closest(`#${id}`)) return;
+
+            setIsOpen(false);
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => document.removeEventListener('click', handleOutsideClick);
+    }, []);
 
     useEffect(() => {
         const allSelected =
@@ -53,7 +69,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     }, [selected, options, isAllSelected]);
 
     return (
-        <div className="multi-select relative">
+        <div
+            id={id}
+            className="multi-select relative"
+        >
             <div className="flex flex-col gap-y-[10px]">
                 <p className="text-base font-medium text-gray-800">{label}</p>
                 <div

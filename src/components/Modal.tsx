@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { BiX } from 'react-icons/bi';
-import { ALL_VALUES_SELECTED } from '../constants/common.constants';
+import {
+    ALL_VALUES_SELECTED,
+    MODAL_ID,
+    TOOLBAR_ID,
+} from '../constants/common.constants';
 import { ContextItem } from '../models/context.model';
 import MultiSelect from './MultiSelect';
 
@@ -15,6 +19,26 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, contexts }) => {
         [selectedContexts, setSelectedContexts] = useState<(string | number)[]>(
             [ALL_VALUES_SELECTED],
         );
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            const element = event.composedPath()[0] as HTMLElement;
+
+            if (
+                element.id === MODAL_ID ||
+                element.closest(`#${MODAL_ID}`) ||
+                element.id === TOOLBAR_ID ||
+                element.closest(`#${TOOLBAR_ID}`)
+            )
+                return;
+
+            onClose();
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => document.removeEventListener('click', handleOutsideClick);
+    }, [onClose]);
 
     useEffect(() => {
         setSelectedContexts([ALL_VALUES_SELECTED]);
@@ -58,15 +82,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, contexts }) => {
 
     return (
         <div
-            className="modal fixed inset-0 backdrop-blur-sm w-full h-full bg-black bg-opacity-50 flex justify-center items-center select-none"
+            className="modal-overlay fixed inset-0 backdrop-blur-sm w-full h-full bg-black bg-opacity-50 flex justify-center items-center select-none"
             style={{
                 zIndex: 10000,
             }}
-            onClick={onClose}
         >
             <div
-                className="bg-white rounded-lg w-full max-w-screen-sm flex flex-col gap-y-[18px] p-6"
-                onClick={(e) => e.stopPropagation()}
+                className="modal bg-white rounded-lg w-full max-w-screen-sm flex flex-col gap-y-[18px] p-6"
+                id={MODAL_ID}
             >
                 <div className="w-full flex items-center justify-between">
                     <h1 className="text-2xl font-semibold text-black">
@@ -83,6 +106,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, contexts }) => {
                     </button>
                 </div>
                 <MultiSelect
+                    id="contexts"
                     label="Select contexts from knowledgebase:"
                     placeHolder="Select one or more contexts..."
                     selected={selectedContexts}
