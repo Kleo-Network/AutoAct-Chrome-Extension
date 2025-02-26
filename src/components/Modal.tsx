@@ -58,7 +58,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, contexts }) => {
 
     return (
         <div
-            className="modal fixed inset-0 backdrop-blur-sm w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
+            className="modal fixed inset-0 backdrop-blur-sm w-full h-full bg-black bg-opacity-50 flex justify-center items-center select-none"
             style={{
                 zIndex: 10000,
             }}

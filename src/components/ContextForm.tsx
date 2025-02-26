@@ -63,6 +63,7 @@ const ContextForm: React.FC<ContextFormProps> = ({
                 placeholder="Title"
                 className="secondary-input-box"
                 onChange={(e) => onChange('title', e.target.value)}
+                autoFocus
             />
             <textarea
                 id="description"
